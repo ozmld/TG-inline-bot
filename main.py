@@ -2,11 +2,13 @@ from create_bot import dp
 from database import sqlite_db
 from aiogram.utils import executor
 from handlers import admin, general
-
+import asyncio
 
 async def on_startup(_):
     print("Online")
     sqlite_db.sql_start()
+    asyncio.create_task(general.scheduler())
+
 
 
 admin.register_handlers_admin(dp)
